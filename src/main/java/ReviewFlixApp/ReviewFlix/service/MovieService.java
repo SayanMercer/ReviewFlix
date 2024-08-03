@@ -1,12 +1,15 @@
 package ReviewFlixApp.ReviewFlix.service;
 
+import ReviewFlixApp.ReviewFlix.domain.Genre;
 import ReviewFlixApp.ReviewFlix.domain.Movie;
 import ReviewFlixApp.ReviewFlix.repository.MovieRepository;
 import ReviewFlixApp.ReviewFlix.service.response.MovieResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -22,5 +25,19 @@ public class MovieService {
         if (Objects.nonNull(movie))
             return movie.toMovieResponse();
         return null;
+    }
+
+
+    public List<MovieResponse> findMoviesByGenre(String genre) {
+        if (Arrays.stream(Genre.values()).noneMatch(g -> g.toString().equals(genre)))
+            return new ArrayList<>();
+        List<Movie> movieList = movieRepository.findByGenre(Genre.valueOf(genre));
+        if (!CollectionUtils.isEmpty(movieList)) {
+            List<MovieResponse> movieResponseList = movieList.stream().sorted(Comparator.comparing(Movie::getRating, Comparator.reverseOrder())).map(m -> m.toMovieResponse()).collect(Collectors.toList());
+            if (movieResponseList.size() > 5)
+                return movieResponseList.subList(0, 4);
+            return movieResponseList;
+        }
+        return new ArrayList<>();
     }
 }

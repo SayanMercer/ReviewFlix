@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
@@ -21,6 +23,10 @@ public class MovieController {
 
         //hello who are you
         //hey baby
+    }
+    @GetMapping("/genre")
+    public List<MovieResponse> findMovieByGenre(@RequestParam String genre){
+        return movieService.findMoviesByGenre(genre);
     }
 
 }
