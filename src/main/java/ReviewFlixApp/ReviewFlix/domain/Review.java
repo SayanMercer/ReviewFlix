@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 @ToString
+@Getter
+@Setter
 public class Review {
 
     @Id
@@ -38,7 +40,16 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
     @JsonIgnore
-    private Movie movie; // it will add foregion key in mysql table with <TABLE_NAME>_<ID_NAME> --> // movie_movie_id
+//    private Movie movie; // it will add foregion key in mysql table with <TABLE_NAME>_<ID_NAME> --> // movie_movie_id
+
+//    @Getter
+//    public Movie getMovie() {
+//        return movie;
+//    }
+
+    private Movie movie;
+    // other fields and methods
+
 
     @CreationTimestamp
     private Date createdon;
