@@ -1,4 +1,4 @@
-#Review Flix ( A flim Review Application)#
+**Review Flix** **( A flim Review Application)**
 
 This Film Review Application is developed using Java 17 and Spring Boot, with MySQL serving as the database. The application provides a seamless experience for both administrators and users.
 
